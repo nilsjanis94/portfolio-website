@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { LoadingSpinner } from '../ui/LoadingSpinner';
 
 export default function Contact() {
   const [formState, setFormState] = useState({
@@ -11,10 +12,26 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    
+    // Validierung
+    const errors: Record<string, string> = {};
+    if (!formState.email.includes('@')) {
+      errors.email = 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
+    }
+    if (formState.message.length < 10) {
+      errors.message = 'Die Nachricht muss mindestens 10 Zeichen lang sein';
+    }
+    
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      setIsSubmitting(false);
+      return;
+    }
     
     try {
       // API-Call hier
@@ -71,7 +88,7 @@ export default function Contact() {
                 isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-700'
               }`}
             >
-              {isSubmitting ? 'Wird gesendet...' : 'Senden'}
+              {isSubmitting ? <LoadingSpinner /> : 'Senden'}
             </button>
             
             {submitStatus === 'success' && (

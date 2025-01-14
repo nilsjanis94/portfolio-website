@@ -3,24 +3,16 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-export default function Projects() {
+interface ProjectsProps {
+  onProjectClick?: (project: any) => void;
+}
+
+export default function Projects({ onProjectClick }: ProjectsProps) {
   const projects = [
     {
-      title: 'E-Commerce Platform',
-      description: 'Eine moderne E-Commerce-Plattform mit Next.js und Stripe',
-      tech: ['Next.js', 'TypeScript', 'Tailwind', 'Stripe'],
-      image: '/projects/ecommerce.jpg'
-    },
-    {
-      title: 'Task Management',
-      description: 'Kollaboratives Task-Management-System mit Echtzeit-Updates',
-      tech: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
-      image: '/projects/taskmanager.jpg'
-    },
-    {
       title: 'Portfolio Website',
-      description: 'Responsive Portfolio-Website mit modernem Design',
-      tech: ['Next.js', 'Framer Motion', 'Tailwind CSS'],
+      description: 'Eine Portfolio-Website mit Next.js und Framer Motion',
+      tech: ['Next.js', 'TypeScript', 'Tailwind', 'Framer Motion'],
       image: '/projects/portfolio.jpg'
     }
   ];
@@ -40,7 +32,11 @@ export default function Projects() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.a
-              href={"https://github.com/your-github-repo"}
+              onClick={(e) => {
+                e.preventDefault();
+                onProjectClick?.(project);
+              }}
+              href={"https://github.com/nilsjanis94"}
               target="_blank"
               rel="noopener noreferrer"
               key={project.title}

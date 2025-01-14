@@ -1,23 +1,23 @@
 import { useEffect } from 'react';
 
-export function useKeyboardNav(sections: string[]) {
+export function useKeyboardNav() {
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        const currentSection = sections.findIndex(id => 
-          document.getElementById(id)?.getBoundingClientRect().top === 0
-        );
-        
-        const nextIndex = e.key === 'ArrowDown' 
-          ? Math.min(currentSection + 1, sections.length - 1)
-          : Math.max(currentSection - 1, 0);
-        
-        document.getElementById(sections[nextIndex])?.scrollIntoView({ behavior: 'smooth' });
+    const handleKeyPress = (e: KeyboardEvent) => {
+      switch(e.key) {
+        case 'h':
+          document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
+          break;
+        case 'p':
+          document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+          break;
+        case 'c':
+          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+          break;
+        // ... weitere Shortcuts
       }
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [sections]);
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
 } 

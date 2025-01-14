@@ -3,6 +3,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from '../ui/ThemeToggle';
+import { 
+  FaGithub, 
+  FaLinkedin, 
+  FaXing 
+} from 'react-icons/fa';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -133,6 +138,33 @@ export default function Navbar() {
             </motion.div>
           )}
         </AnimatePresence>
+
+        <div className="flex items-center gap-4">
+          <a
+            href="https://github.com/nilsjanis94"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-blue-600 transition-colors"
+          >
+            <FaGithub size={24} />
+          </a>
+          <a
+            href="https://linkedin.com/in/IhrUsername"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-blue-600 transition-colors"
+          >
+            <FaLinkedin size={24} />
+          </a>
+          <a
+            href="https://www.xing.com/profile/IhrUsername"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-blue-600 transition-colors"
+          >
+            <FaXing size={24} />
+          </a>
+        </div>
       </div>
     </motion.nav>
   );
