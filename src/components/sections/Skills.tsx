@@ -37,7 +37,7 @@ export default function Skills() {
             Meine Fähigkeiten
           </span>
         </motion.h2>
-        <div className="max-w-3xl mx-auto space-y-8">
+        <div className="max-w-5xl mx-auto space-y-8">
           {skills.map((skill, index) => (
             <motion.div
               key={skill.name}

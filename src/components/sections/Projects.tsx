@@ -1,20 +1,16 @@
 'use client';
 
-import { motion, useMotionValue, useTransform, useSpring, useAnimationControls } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 
 interface ProjectsProps {
   onProjectClick?: (project: any) => void;
 }
 
 export default function Projects({ onProjectClick }: ProjectsProps) {
-  const [width, setWidth] = useState(0);
-  const carousel = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const x = useMotionValue(0);
-  const controls = useAnimationControls();
-
+  const [currentIndex, setCurrentIndex] = useState(0);
+  
   const projects = [
     {
       title: 'Portfolio Website',
@@ -48,27 +44,12 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
     }
   ];
 
-  useEffect(() => {
-    if (carousel.current) {
-      setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth);
-    }
-  }, []);
+  const slideLeft = () => {
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev));
+  };
 
-  const springConfig = { damping: 20, stiffness: 100 };
-  const xSpring = useSpring(x, springConfig);
-
-  const handleDragEnd = () => {
-    setIsDragging(false);
-    const currentX = x.get();
-    
-    // Snap to nearest project
-    const projectWidth = 400 + 32; // width + gap
-    const nearestProject = Math.round(currentX / projectWidth) * projectWidth;
-    
-    controls.start({
-      x: Math.max(Math.min(nearestProject, 0), -width),
-      transition: { type: "spring", ...springConfig }
-    });
+  const slideRight = () => {
+    setCurrentIndex((prev) => (prev < projects.length - 1 ? prev + 1 : prev));
   };
 
   return (
@@ -83,29 +64,36 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
             Meine Projekte
           </span>
         </motion.h2>
-        
-        <motion.div ref={carousel} className="overflow-hidden cursor-grab active:cursor-grabbing">
-          <motion.div 
-            drag="x"
-            style={{ x: xSpring }}
-            dragConstraints={{ right: 0, left: -width }}
-            onDragStart={() => setIsDragging(true)}
-            onDragEnd={handleDragEnd}
-            animate={controls}
-            className="flex gap-8 will-change-transform"
+
+        <div className="relative max-w-4xl mx-auto">
+          <button
+            onClick={slideLeft}
+            className="absolute -left-12 top-1/2 -translate-y-1/2 z-10 bg-white/80 dark:bg-gray-800/80 p-4 rounded-full shadow-lg hover:bg-white dark:hover:bg-gray-700 transition-colors"
+            disabled={currentIndex === 0}
           >
-            {projects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                className="min-w-[300px] md:min-w-[400px] select-none"
-                whileHover={{ scale: isDragging ? 1 : 1.02 }}
-                transition={{ type: "spring", ...springConfig }}
-              >
-                <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-                  <div 
-                    onClick={() => !isDragging && onProjectClick?.(project)}
-                    className="cursor-pointer"
-                  >
+            <svg 
+              className="w-6 h-6" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <div className="overflow-hidden">
+            <motion.div
+              animate={{ x: `${-currentIndex * 100}%` }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="flex"
+            >
+              {projects.map((project) => (
+                <div
+                  key={project.title}
+                  className="min-w-full px-4"
+                  onClick={() => onProjectClick?.(project)}
+                >
+                  <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
                     <div className="aspect-video relative bg-gray-100 dark:bg-gray-800">
                       <Image
                         src={project.image}
@@ -132,39 +120,47 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
                         ))}
                       </div>
                     </div>
+                    <a
+                      href="https://github.com/nilsjanis94"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-6"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <span className="text-white">Projekt ansehen →</span>
+                    </a>
                   </div>
-                  <a
-                    href="https://github.com/nilsjanis94"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-6"
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <span className="text-white">Projekt ansehen →</span>
-                  </a>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
+              ))}
+            </motion.div>
+          </div>
 
-        <div className="flex justify-center gap-2 mt-8">
-          {projects.map((_, index) => (
-            <button
-              key={index}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                Math.abs(Math.round(x.get() / (400 + 32))) === index
-                  ? 'bg-blue-600'
-                  : 'bg-gray-300'
-              }`}
-              onClick={() => {
-                controls.start({
-                  x: Math.max(Math.min(-(index * (400 + 32)), 0), -width),
-                  transition: { type: "spring", ...springConfig }
-                });
-              }}
-            />
-          ))}
+          <button
+            onClick={slideRight}
+            className="absolute -right-12 top-1/2 -translate-y-1/2 z-10 bg-white/80 dark:bg-gray-800/80 p-4 rounded-full shadow-lg hover:bg-white dark:hover:bg-gray-700 transition-colors"
+            disabled={currentIndex === projects.length - 1}
+          >
+            <svg 
+              className="w-6 h-6" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          <div className="flex justify-center gap-2 mt-8">
+            {projects.map((_, index) => (
+              <button
+                key={index}
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  currentIndex === index ? 'bg-blue-600' : 'bg-gray-300'
+                }`}
+                onClick={() => setCurrentIndex(index)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

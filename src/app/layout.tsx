@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/layout/Navbar';
 import { Providers } from './providers';
 
-const geist = Geist({
-  subsets: ['latin']
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -20,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="de" suppressHydrationWarning>
-      <body className={geist.className}>
+      <body className={inter.className}>
         <Providers>
           <Navbar />
           {children}
