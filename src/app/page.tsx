@@ -53,11 +53,11 @@ export default function Home() {
       <Footer />
       <ScrollToTop />
       <CookieConsent />
-      <ProjectModal 
+      {<ProjectModal 
         project={selectedProject}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-      />
+      />}
     </>
   );
 }
