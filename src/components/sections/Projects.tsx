@@ -3,7 +3,11 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
-export default function Projects() {
+interface ProjectsProps {
+  onProjectClick: (project: any) => void;
+}
+
+export default function Projects({ onProjectClick }: ProjectsProps) {
   const projects = [
     {
       title: 'E-Commerce Platform',
@@ -39,10 +43,8 @@ export default function Projects() {
         </motion.h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
-            <motion.a
-              href={"https://github.com/your-github-repo"}
-              target="_blank"
-              rel="noopener noreferrer"
+            <motion.div
+              onClick={() => onProjectClick(project)}
               key={project.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -79,7 +81,7 @@ export default function Projects() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end p-6">
                 <span className="text-white">Projekt ansehen →</span>
               </div>
-            </motion.a>
+            </motion.div>
           ))}
         </div>
       </div>
