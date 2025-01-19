@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+// @ts-ignore
 import ColorThief from 'colorthief';
 
 export function useImageColor(imageUrl: string) {
@@ -19,7 +20,7 @@ export function useImageColor(imageUrl: string) {
       const colors = colorThief.getPalette(img, 5);
 
       setDominantColor(`rgb(${color.join(',')})`);
-      setPalette(colors.map(c => `rgb(${c.join(',')})`));
+      setPalette(colors.map((c: number[]) => `rgb(${c.join(',')})`));
     };
   }, [imageUrl]);
 
