@@ -7,25 +7,22 @@ interface ProjectsProps {
   onProjectClick: (project: any) => void;
 }
 
+interface Project {
+  title: string;
+  description: string;
+  tech: string[];
+  image: string;
+  repoUrl: string;
+}
+
 export default function Projects({ onProjectClick }: ProjectsProps) {
-  const projects = [
-    {
-      title: 'E-Commerce Platform',
-      description: 'Eine moderne E-Commerce-Plattform mit Next.js und Stripe',
-      tech: ['Next.js', 'TypeScript', 'Tailwind', 'Stripe'],
-      image: '/projects/ecommerce.jpg'
-    },
-    {
-      title: 'Task Management',
-      description: 'Kollaboratives Task-Management-System mit Echtzeit-Updates',
-      tech: ['React', 'Node.js', 'Socket.io', 'MongoDB'],
-      image: '/projects/taskmanager.jpg'
-    },
+  const projects: Project[] = [
     {
       title: 'Portfolio Website',
       description: 'Responsive Portfolio-Website mit modernem Design',
       tech: ['Next.js', 'Framer Motion', 'Tailwind CSS'],
-      image: '/projects/portfolio.jpg'
+      image: '/images/portfolio.png',
+      repoUrl: 'https://github.com/nilsjanis94/portfolio-website'
     }
   ];
 
@@ -44,7 +41,7 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <motion.div
-              onClick={() => onProjectClick(project)}
+              onClick={() => window.open(project.repoUrl, '_blank')}
               key={project.title}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
