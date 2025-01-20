@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <>
       <LoadingScreen />
-      <main className="min-h-screen">
+      <main className="min-h-screen pt-20 md:pt-24">
         <Hero />
         <TechStack />
         <div className="container mx-auto px-6">

@@ -65,13 +65,13 @@ export default function Navbar() {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled || isMenuOpen
           ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg' 
           : 'bg-transparent'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           <button 
             onClick={() => handleClick('home')}
@@ -119,7 +119,7 @@ export default function Navbar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mt-4"
+              className="md:hidden mt-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md"
             >
               <div className="py-2 space-y-2">
                 {navigation.map((item) => (
