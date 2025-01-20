@@ -14,6 +14,10 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@heroicons/react', 'react-icons'],
   },
+  webpack: (config) => {
+    config.optimization.minimize = true;
+    return config;
+  },
 }
 
 module.exports = nextConfig

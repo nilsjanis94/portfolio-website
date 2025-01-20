@@ -3,6 +3,11 @@ import { useEffect } from 'react';
 export function useKeyboardNav() {
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.target instanceof HTMLInputElement || 
+          e.target instanceof HTMLTextAreaElement) {
+        return;
+      }
+
       switch(e.key) {
         case 'h':
           document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
@@ -13,7 +18,6 @@ export function useKeyboardNav() {
         case 'c':
           document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
           break;
-        // ... weitere Shortcuts
       }
     };
 
