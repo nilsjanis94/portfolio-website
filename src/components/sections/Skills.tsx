@@ -20,6 +20,7 @@ export default function Skills() {
   const skills = [
     { name: 'Frontend Entwicklung', level: 40, color: 'from-blue-500 to-blue-600' },
     { name: 'Backend Entwicklung', level: 60, color: 'from-purple-500 to-purple-600' },
+    { name: 'Machine Learning', level: 20, color: 'from-red-500 to-red-600' },
     { name: 'Datenbanken', level: 50, color: 'from-green-500 to-green-600' },
   ];
 

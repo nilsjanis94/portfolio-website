@@ -44,13 +44,19 @@ export default function Hero() {
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-gray-700 dark:text-gray-300 min-h-[48px]">
               <TypeAnimation
                 sequence={[
-                  'Full Stack Developer',
-                  2000,
                   'Frontend Entwickler',
                   2000,
                   'Backend Entwickler',
                   2000,
-                  'UI/UX Designer',
+                  'Data Science',
+                  2000,
+                  'Neuronale Netze',
+                  2000,
+                  'Datenbanken',
+                  2000,
+                  'Machine Learning',
+                  2000,
+                  'Künstliche Intelligenz',
                   2000,
                 ]}
                 wrapper="span"

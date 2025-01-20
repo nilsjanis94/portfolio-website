@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { IconType } from 'react-icons';
-import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiNodedotjs, SiPrisma, SiPython, SiMysql } from 'react-icons/si';
+import { SiReact, SiNextdotjs, SiTypescript, SiTailwindcss, SiPython, SiMysql, SiPytorch, SiPandas, SiNumpy } from 'react-icons/si';
 
 interface Technology {
   name: string;
@@ -17,6 +17,9 @@ export default function TechStack() {
     { name: 'Tailwind', icon: SiTailwindcss },
     { name: 'Python', icon: SiPython },
     { name: 'MySQL', icon: SiMysql },
+    { name: 'PyTorch', icon: SiPytorch },
+    { name: 'Pandas', icon: SiPandas },
+    { name: 'NumPy', icon: SiNumpy }
   ];
 
   return (
