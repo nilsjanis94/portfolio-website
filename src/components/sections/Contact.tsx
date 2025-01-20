@@ -5,37 +5,37 @@ import { motion } from 'framer-motion';
 import { LoadingSpinner } from '../ui/LoadingSpinner';
 
 export default function Contact() {
-  const [formState, setFormState] = useState({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'success' | 'error' | null>(null);
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.id]: e.target.value
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Validierung
-    const errors: Record<string, string> = {};
-    if (!formState.email.includes('@')) {
-      errors.email = 'Bitte geben Sie eine gültige E-Mail-Adresse ein';
-    }
-    if (formState.message.length < 10) {
-      errors.message = 'Die Nachricht muss mindestens 10 Zeichen lang sein';
-    }
-    
-    if (Object.keys(errors).length > 0) {
-      setFormErrors(errors);
-      setIsSubmitting(false);
-      return;
-    }
-    
+    setSubmitStatus(null);
+
     try {
-      // API-Call hier
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) throw new Error('Failed to send');
+
       setSubmitStatus('success');
+      setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       setSubmitStatus('error');
     } finally {
@@ -62,7 +62,10 @@ export default function Contact() {
               <input
                 type="text"
                 id="name"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800"
               />
             </div>
             <div>
@@ -70,15 +73,21 @@ export default function Contact() {
               <input
                 type="email"
                 id="email"
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800"
               />
             </div>
             <div>
               <label htmlFor="message" className="block text-sm font-medium mb-2">Nachricht</label>
               <textarea
                 id="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
                 rows={4}
-                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-800"
               ></textarea>
             </div>
             <button
