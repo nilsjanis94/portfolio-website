@@ -18,11 +18,9 @@ export default function Skills() {
   }, [isInView]);
 
   const skills = [
-    { name: 'Frontend Development', level: 90, color: 'from-blue-500 to-blue-600' },
-    { name: 'Backend Development', level: 85, color: 'from-purple-500 to-purple-600' },
-    { name: 'UI/UX Design', level: 80, color: 'from-pink-500 to-pink-600' },
-    { name: 'Database Management', level: 85, color: 'from-green-500 to-green-600' },
-    { name: 'DevOps', level: 75, color: 'from-yellow-500 to-yellow-600' },
+    { name: 'Frontend Entwicklung', level: 40, color: 'from-blue-500 to-blue-600' },
+    { name: 'Backend Entwicklung', level: 60, color: 'from-purple-500 to-purple-600' },
+    { name: 'Datenbanken', level: 50, color: 'from-green-500 to-green-600' },
   ];
 
   return (

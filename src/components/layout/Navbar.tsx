@@ -5,8 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import { 
   FaGithub, 
-  FaLinkedin, 
-  FaXing 
+  FaLinkedin
 } from 'react-icons/fa';
 
 export default function Navbar() {
@@ -155,14 +154,6 @@ export default function Navbar() {
             className="text-gray-600 hover:text-blue-600 transition-colors"
           >
             <FaLinkedin size={24} />
-          </a>
-          <a
-            href="https://www.xing.com/profile/IhrUsername"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-600 hover:text-blue-600 transition-colors"
-          >
-            <FaXing size={24} />
           </a>
         </div>
       </div>

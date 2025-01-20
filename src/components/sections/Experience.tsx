@@ -5,22 +5,10 @@ import { motion } from 'framer-motion';
 export default function Experience() {
   const experiences = [
     {
-      title: 'Senior Full Stack Developer',
-      company: 'Tech Corp',
-      period: '2022 - Present',
-      description: 'Entwicklung und Wartung von skalierbaren Webanwendungen mit React und Node.js'
-    },
-    {
-      title: 'Full Stack Developer',
-      company: 'Digital Solutions',
-      period: '2020 - 2022',
-      description: 'Implementierung von benutzerfreundlichen Frontends und robusten Backend-Systemen'
-    },
-    {
-      title: 'Frontend Developer',
-      company: 'Web Agency',
-      period: '2018 - 2020',
-      description: 'Gestaltung und Entwicklung von responsiven Webseiten und Benutzeroberflächen'
+      title: 'Umschulung zum Anwendungsentwickler',
+      company: 'IBB ',
+      period: '2024 - present',
+      description: 'Schulische Ausbildung zum Anwendungsentwickler'
     }
   ];
 
