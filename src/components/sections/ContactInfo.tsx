@@ -31,8 +31,8 @@ export default function ContactInfo() {
     {
       icon: GlobeAltIcon,
       title: 'Website',
-      value: 'www.example.com',
-      href: 'https://www.example.com'
+      value: 'www.nilswolters.vercel.app',
+      href: 'https://www.nilswolters.vercel.app'
     },
     {
       icon: DocumentIcon,
