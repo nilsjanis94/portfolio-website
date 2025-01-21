@@ -47,13 +47,15 @@ export default function Navbar() {
   const handleClick = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      const navHeight = 100;
+      const navHeight = window.innerWidth >= 768 ? 100 : 80;
       const top = section.offsetTop - navHeight;
-      window.scrollTo({
-        top,
-        behavior: 'smooth'
-      });
       setIsMenuOpen(false);
+      setTimeout(() => {
+        window.scrollTo({
+          top,
+          behavior: 'smooth'
+        });
+      }, 100);
     }
   };
 
@@ -115,14 +117,14 @@ export default function Navbar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden mt-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md"
+              className="absolute top-full left-0 right-0 md:hidden mt-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50"
             >
-              <div className="py-2 space-y-2">
+              <div className="py-4 px-6 space-y-4">
                 {navItems.map((item) => (
                   <button
                     key={item.label}
                     onClick={() => handleClick(item.href)}
-                    className="block w-full text-left py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 cursor-pointer"
+                    className="block w-full text-left py-2 px-4 text-gray-600 dark:text-gray-300 hover:text-blue-600 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors cursor-pointer"
                   >
                     {item.label}
                   </button>
