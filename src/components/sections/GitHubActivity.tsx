@@ -49,11 +49,20 @@ export default function GitHubActivity() {
           {isLoading ? (
             <div className="text-center">Lade Aktivitäten...</div>
           ) : (
-            events.map((event) => (
+            events.map((event, index) => (
               <motion.div
                 key={event.id}
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
+                transition={{ 
+                  delay: index * 0.1,
+                  type: "spring",
+                  stiffness: 100
+                }}
+                whileHover={{ 
+                  scale: 1.02,
+                  boxShadow: "0 10px 30px rgba(0,0,0,0.1)"
+                }}
                 className="bg-white dark:bg-gray-800 rounded-lg p-4 shadow-md"
               >
                 <div className="flex items-center gap-4">

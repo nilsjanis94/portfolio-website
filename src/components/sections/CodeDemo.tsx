@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { TypeAnimation } from 'react-type-animation';
 
 const demos = [
   {
@@ -173,6 +174,7 @@ export function AnimatedCard({ children }) {
 
 export default function CodeDemo() {
   const [activeDemo, setActiveDemo] = useState(0);
+  const [isTyping, setIsTyping] = useState(true);
 
   return (
     <section id="code-demo" className="py-20">
@@ -180,6 +182,7 @@ export default function CodeDemo() {
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="text-3xl font-bold text-center mb-12"
         >
           <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-transparent bg-clip-text">
@@ -187,14 +190,22 @@ export default function CodeDemo() {
           </span>
         </motion.h2>
         
-        <div className="flex gap-4 mb-8 justify-center">
+        <div className="flex flex-wrap gap-2 md:gap-4 mb-8 justify-center px-2">
           {demos.map((demo, index) => (
             <motion.button
               key={demo.title}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ 
+                duration: 0.3,
+                delay: index * 0.1,
+                type: "spring",
+                stiffness: 100
+              }}
               onClick={() => setActiveDemo(index)}
-              className={`px-4 py-2 rounded-lg transition-colors ${
+              className={`px-3 py-1.5 md:px-4 md:py-2 text-sm md:text-base rounded-lg transition-colors whitespace-nowrap ${
                 activeDemo === index
                   ? 'bg-blue-600 text-white'
                   : 'bg-gray-100 dark:bg-gray-800'
@@ -209,16 +220,34 @@ export default function CodeDemo() {
           key={activeDemo}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ 
+            type: "spring",
+            stiffness: 100,
+            damping: 15
+          }}
           className="max-w-4xl mx-auto rounded-lg overflow-hidden shadow-xl"
         >
-          <SyntaxHighlighter
-            language={demos[activeDemo].language}
-            style={atomDark}
-            showLineNumbers
-            className="text-sm md:text-base"
-          >
-            {demos[activeDemo].code}
-          </SyntaxHighlighter>
+          <div className="bg-[#2d2d2d] p-4">
+            <TypeAnimation
+              sequence={[
+                demos[activeDemo].code,
+                () => setIsTyping(false)
+              ]}
+              wrapper="div"
+              cursor={true}
+              repeat={0}
+              speed={90}
+              style={{ 
+                fontFamily: 'monospace',
+                whiteSpace: 'pre',
+                color: '#fff',
+                overflowX: 'auto',
+                fontSize: '14px'
+              }}
+              className="text-xs md:text-sm lg:text-base scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-transparent"
+            />
+          </div>
         </motion.div>
       </div>
     </section>

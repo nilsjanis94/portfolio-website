@@ -18,11 +18,18 @@ export function ProjectFilter({ activeFilter, setActiveFilter }: ProjectFilterPr
   
   return (
     <div className="flex flex-wrap justify-center gap-4 mb-8">
-      {filters.map(filter => (
+      {filters.map((filter, index) => (
         <motion.button
           key={filter}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ 
+            delay: index * 0.1,
+            type: "spring",
+            stiffness: 100
+          }}
           onClick={() => setActiveFilter(filter)}
           className={`px-4 py-2 rounded-lg transition-colors ${
             activeFilter === filter
