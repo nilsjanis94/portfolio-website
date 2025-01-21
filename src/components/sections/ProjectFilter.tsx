@@ -8,7 +8,13 @@ interface ProjectFilterProps {
 }
 
 export function ProjectFilter({ activeFilter, setActiveFilter }: ProjectFilterProps) {
-  const filters = ['Alle', 'Web', 'Mobile', 'Backend'];
+  const filters = [
+    'Alle',
+    'Web Development',
+    'Machine Learning',
+    'Data Science',
+    'Backend'
+  ];
   
   return (
     <div className="flex flex-wrap justify-center gap-4 mb-8">

@@ -6,7 +6,6 @@ import TechStack from "@/components/sections/TechStack";
 import Projects from "@/components/sections/Projects";
 import Skills from "@/components/sections/Skills";
 import Experience from "@/components/sections/Experience";
-import Blog from "@/components/sections/Blog";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/layout/Footer";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
@@ -16,6 +15,8 @@ import { useKeyboardNav } from "@/hooks/useKeyboardNav";
 import { ProjectFilter } from "@/components/sections/ProjectFilter";
 import { ProjectModal } from "@/components/ui/ProjectModal";
 import LoadingScreen from "@/components/ui/LoadingScreen";
+import GitHubActivity from "@/components/sections/GitHubActivity";
+import CodeDemo from "@/components/sections/CodeDemo";
 
 
 
@@ -44,9 +45,10 @@ export default function Home() {
           />
         </div>
         <Projects onProjectClick={handleProjectClick} />
+        <GitHubActivity />
+        <CodeDemo />
         <Skills />
         <Experience />
-        <Blog />
         <ContactInfo />
         <Contact />
       </main>

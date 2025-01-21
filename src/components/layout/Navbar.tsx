@@ -3,41 +3,38 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ThemeToggle } from '../ui/ThemeToggle';
-import { 
-  FaGithub, 
-  FaLinkedin
-} from 'react-icons/fa';
+import { FaGithub, FaLinkedin } from 'react-icons/fa';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
 
-  const navigation = [
-    { name: 'Home', href: 'home' },
-    { name: 'Tech Stack', href: 'tech-stack' },
-    { name: 'Projekte', href: 'projects' },
-    { name: 'Skills', href: 'skills' },
-    { name: 'Experience', href: 'experience' },
-    { name: 'Blog', href: 'blog' },
-    { name: 'Kontakt', href: 'contact' },
+  const navItems = [
+    { label: 'Home', href: 'home' },
+    { label: 'Tech Stack', href: 'tech-stack' },
+    { label: 'Projekte', href: 'projects' },
+    { label: 'Aktivität', href: 'github-activity' },
+    { label: 'Code', href: 'code-demo' },
+    { label: 'Skills', href: 'skills' },
+    { label: 'Erfahrung', href: 'experience' },
+    { label: 'Kontakt', href: 'contact' }
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-
-      // Aktiven Abschnitt bestimmen mit deutlich erhöhtem Offset
-      const sections = navigation.map(item => document.getElementById(item.href));
-      const scrollPosition = window.scrollY + 200; // Erhöhter Offset für noch früheres Auslösen
+      const offset = 250;
+      const sections = navItems.map(item => document.getElementById(item.href));
+      const scrollPosition = window.scrollY + offset;
 
       sections.forEach((section, index) => {
         if (section) {
-          const sectionTop = section.offsetTop - 150; // Größerer negativer Offset
+          const sectionTop = section.offsetTop - offset;
           const sectionBottom = sectionTop + section.offsetHeight;
 
           if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            setActiveSection(navigation[index].href);
+            setActiveSection(navItems[index].href);
           }
         }
       });
@@ -50,7 +47,7 @@ export default function Navbar() {
   const handleClick = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
-      const navHeight = 80;
+      const navHeight = 100;
       const top = section.offsetTop - navHeight;
       window.scrollTo({
         top,
@@ -80,15 +77,15 @@ export default function Navbar() {
           </button>
 
           <div className="hidden md:flex items-center space-x-8">
-            {navigation.map((item) => (
+            {navItems.map((item) => (
               <button
-                key={item.name}
+                key={item.label}
                 onClick={() => handleClick(item.href)}
                 className={`relative text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors cursor-pointer ${
                   activeSection === item.href ? 'text-blue-600 dark:text-blue-400' : ''
                 }`}
               >
-                {item.name}
+                {item.label}
                 {activeSection === item.href && (
                   <motion.div
                     layoutId="activeSection"
@@ -121,13 +118,13 @@ export default function Navbar() {
               className="md:hidden mt-4 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md"
             >
               <div className="py-2 space-y-2">
-                {navigation.map((item) => (
+                {navItems.map((item) => (
                   <button
-                    key={item.name}
+                    key={item.label}
                     onClick={() => handleClick(item.href)}
                     className="block w-full text-left py-2 text-gray-600 dark:text-gray-300 hover:text-blue-600 cursor-pointer"
                   >
-                    {item.name}
+                    {item.label}
                   </button>
                 ))}
                 <div className="pt-2">
