@@ -71,7 +71,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
-              Ich entwickle moderne Webanwendungen mit Fokus auf Benutzerfreundlichkeit und Performance.
+              Ich entwickle moderne Frontend und Backend Lösungen mit Fokus auf Performance und Benutzerfreundlichkeit.
             </motion.p>
 
             <motion.div 
