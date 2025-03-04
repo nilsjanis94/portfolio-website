@@ -23,6 +23,13 @@ export default function Projects({ onProjectClick }: ProjectsProps) {
       tech: ['Next.js', 'Framer Motion', 'Tailwind CSS'],
       image: '/images/portfolio.png',
       repoUrl: 'https://github.com/nilsjanis94/portfolio-website'
+    },
+    {
+      title: 'Discord Bot',
+      description: 'Discord Bot für die Administration von Discord-Servern',
+      tech: ['Python', 'Discord.py'],
+      image: '/images/discord_bot.png',
+      repoUrl: 'https://github.com/nilsjanis94/discord_bot'
     }
   ];
 
